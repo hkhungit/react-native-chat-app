@@ -8,6 +8,14 @@
 - Page SignUp
 - Page Chats
 
+## GALLERIES
+![home](/docs/images/home.png)
+![signin](/docs/images/signin.png)
+![signin-error](/docs/images/signin-error.png)
+![signup](/docs/images/signup.png)
+![signup-error](/docs/images/signup-error.png)
+![chats](/docs/images/chats.png)
+
 ## TODO
 
 - [ ] Add send message
