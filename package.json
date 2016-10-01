@@ -1,0 +1,27 @@
+{
+  "name": "ReactNativeChat",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean",
+    "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && npm cache clean && npm i",
+    "tron": "node_modules/.bin/reactotron"
+  },
+  "dependencies": {
+    "apisauce": "^0.5.0",
+    "moment": "^2.15.1",
+    "react": "15.3.2",
+    "react-native": "0.34.0",
+    "react-native-button": "https://github.com/hkhungit/react-native-button.git",
+    "react-native-scrollable-tab-view": "^0.6.0",
+    "react-native-storage": "0.1.2",
+    "react-native-textinput-effects": "^0.1.3",
+    "react-native-vector-icons": "^2.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.11.1",
+    "reduxsauce": "^0.2.0",
+    "seamless-immutable": "^6.1.1"
+  }
+}
