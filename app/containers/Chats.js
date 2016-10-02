@@ -35,25 +35,19 @@ class Chats extends Component {
   componentWillMount() {
     const token = Auth.getToken()
     this.props.dispatch(Actions.GetChats(token))
-  }  
-
-  componentDidMount() {
-    Router.save(this)
   }
 
   render() {
-    const { chats } = this.props
+    const { chats, onPress=(c)=>{} } = this.props
 
     return (
       <View style={styles.container}>
-        <Topbar style={styles.topbar}/>
         <View style={[styles.header, styles.row]}>
-          <Button style={styles.btnIcon}><Icon name='edit' color={Color.white} size={20}/></Button>
           <View style={styles.coverTitle}><Text style={styles.title}> Chats</Text></View>
-          <Button style={styles.btnIcon}><Icon name='search-plus' color={Color.white} size={20}/></Button>
+          <Button style={styles.btnIcon}><Icon name='edit' color={Color.white} size={20}/></Button>
         </View>
         <View style={styles.component}>
-          <Lists dataSource={chats} />
+          <Lists dataSource={chats} onPress={onPress} />
         </View>
       </View>
     );
@@ -64,14 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Color.background,
-  },
-
-  topbar: {
-    ...Platform.select({
-      ios: {
-        height: 30,
-      }
-    }),
   },
 
   header: {

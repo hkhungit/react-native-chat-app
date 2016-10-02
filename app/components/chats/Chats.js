@@ -25,7 +25,8 @@ class Chats extends Component {
   }
 
   renderRow(item){
-    return <Item {...item} />
+    const { onPress=(c)=>{} } = this.props
+    return <Item {...item} onPress={()=> onPress(item)} />
   }
 
   cloneWithRows(items){

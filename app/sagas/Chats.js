@@ -20,7 +20,7 @@ export function* getChatsWatcher() {
 }
 
 function* getChats(token) {
-  const response = yield call(Api.get, '/chats', null, { headers: { Authorization: token }})
+  const response = yield call(Api.get, '/users/chats', null, { headers: { Authorization: token }})
   const { status, data } = response.data
 
   if (status === 'success')

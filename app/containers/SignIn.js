@@ -49,9 +49,15 @@ class SignIn extends Component {
     this.props.dispatch(Actions.SignInExecute({username, password}))
   }
 
+  componentWillMount() {
+    if (Auth.isLogin()) {
+      return this.props.navigator.resetTo({name: 'home'})
+    }
+  }
+
   componentWillReceiveProps(props) {
     if (Auth.isLogin() && props.redirect) {
-      return this.props.navigator.resetTo({name: 'chats'})
+      return this.props.navigator.resetTo({name: 'home'})
     }
   }  
 

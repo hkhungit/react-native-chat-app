@@ -9,7 +9,9 @@
  */
 
 import Home             from './Home'
+import Chat             from './Chat'
 import Chats            from './Chats'
 import SignUp           from './SignUp'
 import SignIn           from './SignIn'
-export { Home, Chats, SignIn, SignUp }
+import Screen           from './Screen'
+export { Screen, Chat, Home, Chats, SignIn, SignUp }

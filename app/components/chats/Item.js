@@ -24,14 +24,14 @@ class Chats extends Component {
   }
 
   render() {
-    const { fullname, image = 'https://facebook.github.io/react/img/logo_og.png', message = 'hello react native chatapp', time ='0 sec', style = {} } = this.props
+    const { name = '', image, id, message, time, style = {}, onPress=()=>{} } = this.props
     return (
-      <Button style={[styles.container, style]}>
+      <Button style={[styles.container, style]} onPress={onPress}>
         <View style={styles.imageOutner}>
           <Image style={styles.image} source={{uri: image}} />
         </View>
         <View style={styles.component}>
-          <Text style={styles.name}>{fullname.toUpperCase()}</Text>
+          <Text style={styles.name}>{name.toUpperCase()}</Text>
           <Text style={styles.message}>{message}</Text>
         </View>
         <Text style={styles.caption}>{time}</Text>

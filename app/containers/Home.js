@@ -12,48 +12,100 @@ import React, { Component  } from 'react'
 import {
   Text,
   View,
-  ScrollView,
+  Platform,
+  Dimensions,
+  StatusBar,
   StyleSheet,
+  LayoutAnimation,
+  TouchableHighlight
 } from 'react-native'
+import Actions          from '../actions'
+import Users            from './Users'
+import Chats            from './Chats'
+import Search           from './Search'
+import Inviters         from './Inviters'
+import Setting          from './Setting'
+import { connect }      from 'react-redux'
 import Router           from '../navigators'
 import { Color }        from '../assets/Varibles'
 import Button           from 'react-native-button'
-import Storage          from 'react-native-storage'
+import Tabs             from '../components/sidebars/Tabs'
 import Topbar           from '../components/sidebars/Topbar'
+import TabsView         from 'react-native-scrollable-tab-view'
+import Icon             from 'react-native-vector-icons/FontAwesome'
 
 class Home extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      showDrop:false
+    }
   }
 
+  goSetting(){
+    this.refs.setting.goSetting()
+  }
+
+  onLogout(){
+    this.props.dispatch(Actions.SignOutExecute())
+  }
+
+  onProfile(){
+    
+  }
+
+  onMedia(){
+    
+  }
+  
+  onSound(){
+    
+  }
+  
+  onDownload(){
+    
+  } 
+
+  onStatistical(){
+    
+  }
+
+  componentWillReceiveProps(props) {
+    const { Signout } = props
+    if (Signout)
+      this.props.navigator.resetTo({name: 'screen'})
+  }
+  
   componentDidMount() {
     Router.save(this)
   }
 
+  redirectChat(chat){
+    return Router.redirect(this, 'chat', {chat})
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Topbar/>
-        <ScrollView contentContainerStyle={{flex: 1}}>
-          <View style={styles.form}>
-            <View style={styles.coverTitle}>
-              <Text style={styles.titleText}>Logo</Text>
-            </View>
-            <Text style={styles.slogan}> (^-^) Enter your slogan here (-.-) </Text>
-          </View>
-        </ScrollView>
-        <View style={styles.btnGroup}>
-          <Button
-            styleText={styles.btnText}
-            style={styles.btn}
-            onPress={() => Router.redirect(this, 'sign-in')}
-            text="SIGN IN" />
-          <Button
-            styleText={styles.btnText}
-            style={styles.btn}
-            onPress={() => Router.redirect(this, 'sign-up')}
-            text="SIGN UP" />
-        </View>
+      <View style={[styles.container]}>
+        <Topbar style={styles.topbar}/>
+        <TabsView
+          initialPage={0}
+          style={styles.tabs}
+          renderTabBar={() => <Tabs goSetting={this.goSetting.bind(this)} />}>
+          <Chats tabLabel="chats" onPress={this.redirectChat.bind(this)} />
+          <Users tabLabel="friends" />
+          <Inviters tabLabel="inviters" />
+          <Search tabLabel="search" />
+        </TabsView>
+        <Setting
+          ref='setting'
+          onProfile={this.onProfile.bind(this)}
+          onMedia={this.onMedia.bind(this)}
+          onSound={this.onSound.bind(this)}
+          onDownload={this.onDownload.bind(this)}
+          onStatistical={this.onStatistical.bind(this)}
+          onLogout={this.onLogout.bind(this)}
+        />
       </View>
     );
   }
@@ -62,61 +114,26 @@ class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    backgroundColor: Color.sidebar,
+  },
+
+  topbar: {
+    ...Platform.select({
+      ios: {
+        height: 30,
+      }
+    }),
+  },
+
+  tabs: {
+    flex: 1,
+    flexDirection: 'column-reverse',
     backgroundColor: Color.background,
   },
-
-  coverTitle: {
-    width: 100,
-    height: 100,
-    marginBottom: 30,
-    borderRadius: 50,
-    overflow: 'hidden',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Color.sidebar,
-  },
-
-  titleText:{
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: Color.white,
-  },
-
-  form:{
-    flex: 1,
-    padding: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  slogan: {
-    color: Color.white,
-    justifyContent: 'center',
-  },
-
-  btnGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Color.sidebar,
-  },
-
-  btn: {
-    margin: 0,
-    padding: 5,
-    borderWidth: 0,
-    borderRadius: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Color.sidebar,
-  },
-
-  btnText: {
-    fontSize: 20,
-    color: '#FFF',
-  }
 });
 
-export default Home
+function map(state) {
+  return state.Home
+}
+
+export default connect(map)(Home)

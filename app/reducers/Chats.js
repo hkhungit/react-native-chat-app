@@ -18,7 +18,22 @@ export const INITIAL_STATE = Immutable({
 
 const FetchChats = (state, action) => {
   const { chats } =  action
-  return {...state, chats}
+  return {...state, chats: renderChats(chats)}
+}
+
+const renderChats = (chats) =>{
+  return chats.map(chat => FetchChat(chat))
+}
+
+const FetchChat = (chat)=>{
+  const user  = Auth.currentUser()
+  const names = chat.users.filter(u => u.id != user.id).map(u=> u.fullname)
+  const mess  = chat.last_message
+  const name  = names.join(',')
+  const { message } = mess
+  const time  = '0 sec'
+  const image = 'https://facebook.github.io/react/img/logo_og.png'
+  return { name, message, image, time }
 }
 
 const ACTION_HANDLERS = {
