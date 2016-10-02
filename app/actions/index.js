@@ -49,6 +49,34 @@ const FetchChats = (chats) => (
   {type: Types.FETCH_CHATS, chats}
 )
 
+const SignOutExecute = () => (
+  {type: Types.SIGN_OUT_EXECUTE}
+)
+
+const GetFriends = (token) => (
+  {type: Types.GET_FRIENDS, token}
+)
+
+const GetInviters = (token) => (
+  {type: Types.GET_INVITERS, token}
+)
+
+const GetStrangers = (token) => (
+  {type: Types.GET_STRANGERS, token}
+)
+
+const FetchStrangers = (strangers) => (
+  {type: Types.FETCH_STRANGERS, strangers}
+)
+
+const FetchFriends = (friends) => (
+  {type: Types.FETCH_FRIENDS, friends}
+)
+
+const FetchInviters = (inviters) => (
+  {type: Types.FETCH_INVITERS, inviters}
+)
+
 export default {
   SignInReset,
   SignInExecute,
@@ -58,7 +86,14 @@ export default {
   SignUpExecute,
   SignUpSuccess,
   SignUpFailure,
+  SignOutExecute,
 
   GetChats,
   FetchChats,
+  GetFriends,
+  GetInviters,
+  GetStrangers,
+  FetchFriends,
+  FetchInviters,
+  FetchStrangers,
 }

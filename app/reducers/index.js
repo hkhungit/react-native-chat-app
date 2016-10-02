@@ -8,14 +8,24 @@
  */
 
 import { combineReducers }  from 'redux'
-import Main                 from './Main'
+import Home                 from './Home'
+import Users                from './Users'
 import Chats                from './Chats'
 import SignIn               from './SignIn'
 import SignUp               from './SignUp'
+import Search               from './Search'
+import Setting              from './Setting'
+import Message              from './Message'
+import Inviters             from './Inviters'
 
 export default combineReducers({
-  Main,
+  Home,
+  Users,
   Chats,
   SignIn,
   SignUp,
+  Search,
+  Setting,
+  Message,
+  Inviters
 })
