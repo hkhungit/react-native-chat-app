@@ -58,11 +58,10 @@ class Topbar extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Color.sidebar,
-    height: 70,
   },
 
   header: {
-    marginBottom: 20,
+    marginBottom: 10,
     ...Platform.select({
       ios: {
         marginTop: 30,

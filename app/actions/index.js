@@ -77,6 +77,23 @@ const FetchInviters = (inviters) => (
   {type: Types.FETCH_INVITERS, inviters}
 )
 
+const SendMessage = (message) => (
+  {type: Types.SEND_MESSAGE, message}
+)
+
+const GetMessages = (chat) => (
+  {type: Types.GET_MESSAGES, chat}
+)
+
+const FetchMessages = (chat) => (
+  {type: Types.FETCH_MESSAGES, chat}
+)
+
+const AddMessage = (message)=>(
+  {type: Types.ADD_MESSAGE, message}
+)
+
+
 export default {
   SignInReset,
   SignInExecute,
@@ -96,4 +113,9 @@ export default {
   FetchFriends,
   FetchInviters,
   FetchStrangers,
+
+  SendMessage,
+  GetMessages,
+  FetchMessages,
+  AddMessage
 }

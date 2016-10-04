@@ -33,7 +33,8 @@ const FetchChat = (chat)=>{
   const { message } = mess
   const time  = '0 sec'
   const image = 'https://facebook.github.io/react/img/logo_og.png'
-  return { name, message, image, time }
+  const id    = chat.id
+  return { name, message, image, time, id }
 }
 
 const ACTION_HANDLERS = {

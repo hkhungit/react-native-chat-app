@@ -8,7 +8,7 @@
  */
 
 import { fork } from 'redux-saga/effects'
-import { getChatsWatcher } from './Chats'
+import { getChatsWatcher, sendMessageWatcher, getMessagesWatcher } from './Chats'
 import { signUpWatcher } from './SignUp'
 import { signInWatcher } from './SignIn'
 import { getStrangersWatcher, getFriendsWatcher, getInvitersWatcher } from './User'
@@ -20,4 +20,6 @@ export default function* root() {
   yield fork(getStrangersWatcher)
   yield fork(getFriendsWatcher)
   yield fork(getInvitersWatcher)
+  yield fork(getMessagesWatcher)
+  yield fork(sendMessageWatcher)
 }

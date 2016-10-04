@@ -50,10 +50,11 @@ class Setting extends Component {
   layoutLinear = {
     duration: 600,
     create: {
-      type: 'linear',
+      type: LayoutAnimation.Types.linear,
+      property: LayoutAnimation.Properties.opacity,
     },
     update: {
-      type: 'easeInEaseOut',
+      type: LayoutAnimation.Types.easeInEaseOut,
     },
   }
 

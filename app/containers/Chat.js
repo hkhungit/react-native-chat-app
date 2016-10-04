@@ -27,6 +27,7 @@ import Button           from 'react-native-button'
 import Storage          from 'react-native-storage'
 import Lists            from '../components/users/inviters'
 import Topbar           from '../components/sidebars/Topbar'
+import Messages         from '../components/messages'
 import { Sae }          from 'react-native-textinput-effects'
 import Icon             from 'react-native-vector-icons/FontAwesome'
 
@@ -34,16 +35,39 @@ class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: null
+      text: null,
+      token: Auth.getToken()
     }
   }
 
   componentDidMount() {
     Router.save(this)
+    const chat_id = this.props.chat.id
+    const { token } =  this.state
+    this.props.dispatch(Actions.GetMessages({chat_id, token}))
+  }
+
+  componentWillReceiveProps(props) {
+    const { messages, chat_id } = props
+    if (messages && chat_id === this.props.chat.id && this.refs.messages) {
+      this.refs.messages.setState({dataSource: messages})
+    }
   }
 
   send(){
+    const { text } = this.state
+    if (text) {
+      const { token } =  this.state
+      const chat_id = this.props.chat.id,
+      message = {
+        chat_id,
+        token,
+        content: text,
+      }
 
+      this.props.dispatch(Actions.SendMessage(message))
+      this.setState({text: null})
+    }
   }
 
   onBack(){
@@ -51,8 +75,9 @@ class Chat extends Component {
   }
 
   render() {
-    const { messages, chat={} } = this.props
+    const { chat={} } = this.props
     const { name, image } = chat
+    const { text } =  this.state
     return (
       <View style={styles.container}>
         <Topbar style={styles.topbar}/>
@@ -68,11 +93,16 @@ class Chat extends Component {
             <TextInput
               onChangeText={(text) => this.setState({text})}
               placeholder='Reply...'
-              placeholderTextColor={Color.background} ref='input' style={styles.input} />
+              value={text}
+              placeholderTextColor={Color.background}
+              ref='input'
+              style={styles.input} />
             <Button style={styles.btnSend} onPress={this.send.bind(this)}>
               <Icon name='mail-forward' size={20} color='#FFF' />
             </Button>
           </View>
+
+          <Messages ref='messages' />
         </View>
       </View>
     );

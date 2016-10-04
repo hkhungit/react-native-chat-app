@@ -27,6 +27,8 @@ import Inviters         from './Inviters'
 import Setting          from './Setting'
 import { connect }      from 'react-redux'
 import Router           from '../navigators'
+import Auth             from '../services/Auth'
+import Env              from '../../env'
 import { Color }        from '../assets/Varibles'
 import Button           from 'react-native-button'
 import Tabs             from '../components/sidebars/Tabs'
@@ -68,6 +70,22 @@ class Home extends Component {
 
   onStatistical(){
     
+  }
+
+  componentWillMount() {
+    const token = Auth.getToken()
+    const el    = this
+    let host    = Env.host.replace(/https:\/\//,"")
+    host        = host.replace(/http:\/\//,"")
+    
+    this.websocket = ActionCable.createConsumer(`ws://${host}/cable?token=${token}`)
+
+    Env.Channel = this.websocket.subscriptions.create('UsersChannel', {
+      received (response){
+        if (response.model == 'message')
+          el.props.dispatch(Actions.AddMessage(response.data))
+      }
+    })
   }
 
   componentWillReceiveProps(props) {

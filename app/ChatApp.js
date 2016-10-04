@@ -17,6 +17,7 @@ import {
 import Env                  from '../env'
 import Router               from './navigators'
 import Storage              from 'react-native-storage';
+import ActionCable          from './vendors/actioncable'
 import createStore          from './reducers/createStore'
 import { Provider }         from 'react-redux'
 
@@ -67,7 +68,7 @@ class ChatApp extends Component {
         />
       )
 
-    if (routes && currentId)
+    if (routes && currentId && routes[currentId])
       return (
         <Provider store={store}>
           <Navigator
@@ -83,7 +84,7 @@ class ChatApp extends Component {
       <Provider store={store}>
         <Navigator
           ref="navigator"
-          initialRoute={{name: 'home'}}
+          initialRoute={{name: 'screen'}}
           renderScene={Router.renderScene}
           configureScene={Router.configureScene}
         />
